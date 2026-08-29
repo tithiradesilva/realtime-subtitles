@@ -8,9 +8,16 @@
     },
     "permissions": [
       "tabCapture",
-      "activeTab"
+      "activeTab",
+      "offscreen"
     ],
     "background": {
     "service_worker": "background.js"
-    }
+    },
+    "web_accessible_resources": [
+      {
+        "resources": ["offscreen.html"],
+        "matches": ["<all_urls>"]
+      }
+    ]
   }
