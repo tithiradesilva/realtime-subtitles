@@ -1,11 +1,24 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      input: 'index.html',
+      input: {
+        popup: resolve(__dirname, 'index.html'),
+        background: resolve(__dirname, 'src/background/service-worker.ts'),
+      },
+      output: {
+        entryFileNames: (chunk) => {
+          if (chunk.name === 'background') {
+            return 'background.js'
+          }
+
+          return 'assets/[name].js'
+        },
+      },
     },
   },
 })
