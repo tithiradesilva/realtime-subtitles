@@ -1,4 +1,5 @@
 import './App.css'
+import { startSubtitles } from './services/extension-messaging'
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         </select>
       </section>
 
-      <button type="button">
+      <button type="button" onClick={startSubtitles}>
         Start Subtitles
       </button>
     </main>
