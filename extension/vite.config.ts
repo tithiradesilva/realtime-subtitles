@@ -5,30 +5,28 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react()],
   build: {
+    outDir: 'dist',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, 'index.html'),
+        popup: resolve(import.meta.dirname, 'index.html'),
         background: resolve(
-          __dirname,
+          import.meta.dirname,
           'src/background/service-worker.ts'
         ),
         offscreen: resolve(
-          __dirname,
+          import.meta.dirname,
           'src/offscreen/offscreen.ts'
         ),
       },
       output: {
         entryFileNames: (chunk) => {
-          if (chunk.name === 'background') {
-            return 'background.js'
-          }
-        
-          if (chunk.name === 'offscreen') {
-            return 'offscreen.js'
-          }
-        
+          if (chunk.name === 'background') return 'background.js'
+          if (chunk.name === 'offscreen') return 'offscreen.js'
           return 'assets/[name].js'
         },
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name].[ext]',
       },
     },
   },
